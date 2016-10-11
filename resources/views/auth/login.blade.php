@@ -13,86 +13,81 @@
         <script src="/js/login.js"></script>
 @endsection
 @section('content')
-<header id="head">
+  <header id="head">
     <!-- HEADLINE -->
     <h2><b>Funny</b> Donkey Contest</h2>
-</header>
-<div class="form container" id="form">
+  </header>
 
-     <ul class="tab-group">
-       <li class="tab active"><a href="#signup">Sign Up</a></li>
-       <li class="tab"><a href="#login">Log In</a></li>
-     </ul>
 
-     <div class="tab-content">
-       <div id="signup">
 
-         <form action="{{ url('/register') }}" method="post">
-             {{ csrf_field() }}
-         <div class="top-row">
-           <div class="field-wrap">
-             <label>
-               First Name<span class="req">*</span>
-             </label>
-             <input id="firstname" type="text" name="firstname"  />
-           </div>
+  <div class="form container" id="form">
 
-           <div class="field-wrap">
-             <label>
-               Last Name<span class="req">*</span>
-             </label>
-             <input id="lastname" type="text"  name="lastname"/>
-           </div>
-         </div>
+    <ul class="tab-group">
+      <li class="tab"><a href="/register">Sign Up</a></li>
+      <li class="tab active"><a href="#login">Log In</a></li>
+    </ul>
 
-         <div class="field-wrap">
-           <label>
-             Email Address<span class="req">*</span>
-           </label>
-           <input id="email" type="email" name="email" />
-         </div>
+    <div class="tab-content">
+      <div id="login">
+        <form role="form" method="POST" action="{{ url('/login') }}">
+            {{ csrf_field() }}
 
-         <div class="field-wrap">
-           <label>
-             Set A Password<span class="req">*</span>
-           </label>
-           <input id="password" type="password"required autocomplete="off"/>
-         </div>
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+              <div class="field-wrap">
+                <label for="email" >E-Mail Address  <span class="req">*</span></label>
 
-         <button type="submit" class="button button-block"/>Get Started</button>
 
-         </form>
+                    <input id="email" type="login" name="email" value="{{ old('email') }}" >
 
-       </div>
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
 
-       <div id="login">
-         <h1>Welcome Back!</h1>
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+              <div class="field-wrap">
+                <label for="password" >Password <span class="req">*</span></label>
 
-         <form action="/login" method="post">
-           {{ csrf_field() }}
-           <div class="field-wrap">
-           <label>
-             Email Address<span class="req">*</span>
-           </label>
-           <input id="email" type="email"required autocomplete="off"/>
-         </div>
+                    <input id="password" type="password"  name="password" required>
 
-         <div class="field-wrap">
-           <label>
-             Password<span class="req">*</span>
-           </label>
-           <input id="password" type="password"required autocomplete="off"/>
-         </div>
+                    @if ($errors->has('password'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
 
-         <p class="forgot"><a href="#">Forgot Password?</a></p>
 
-         <button class="button button-block"/>Log In</button>
+            <div class="form-group">
+                <div>
+                    <button type="submit" class="button button-block">
+                        Login
+                    </button>
 
-         </form>
+                    <a class="forgot" href="{{ url('/password/reset') }}">
+                        Forgot Your Password?
+                    </a>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div id="signup">
 
-       </div>
 
-     </div><!-- tab-content -->
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                        {{ csrf_field() }}
 
-</div> <!-- /form -->
+
+
+                    </form>
+                  </div>
+
+              </div>
+            </div>
+
+
 @endsection

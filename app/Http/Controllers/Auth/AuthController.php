@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -28,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -48,10 +50,15 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+
+        $ip = Request::getClientIp();
+        $data["ip"] = $ip;
         return Validator::make($data, [
-            'firstname' => 'required|max:255',
+
+            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'ip' => 'required|ip|unique:users,ip',
         ]);
     }
 
@@ -63,12 +70,14 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+
+      $ip = Request::getClientIp();
+
         return User::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastename'],
+            'name' => $data['name'],
             'email' => $data['email'],
-            'ip' => Request::ip(),
             'password' => bcrypt($data['password']),
+            'ip' => $ip,
         ]);
     }
 }

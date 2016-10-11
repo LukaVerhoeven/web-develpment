@@ -12,9 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('enter');
+    return view('welcome');
 });
 
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::post('/photoupload', 'ContestController@addphoto');
+
+Route::get('/vote/{id}', 'ContestController@vote');
+Route::get('/removevote/{id}', 'ContestController@removevote');

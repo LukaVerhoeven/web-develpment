@@ -2,10 +2,64 @@
  * Author: Carlos Alvarez
  * URL: http://alvarez.is
  *
- * Project Name: 
+ * Project Name:
  * Version: 1.0
  * URL: http://alvarez.is
  */
+ #filecss, #inputcss{
+      float:left;
+ }
+ .vote{
+   text-decoration: none;
+   float: left;
+   background-color: #1f2224;
+   width: 200px;
+   text-align: center;
+   color:white;
+   border: solid 3px #34a58e;
+   margin-bottom: 20px;
+   height: 50px;
+   font-size: x-large;
+   font-weight: 500;
+   margin-right: 35px;
+ }
+ .vote:hover{
+   color: #34a58e;
+   border: solid 3px #34a58e;
+   transition: color 0s ease-in-out, border-bottom-color 0s ease-in-out;
+ }
+ .removevote{
+    border: solid 3px #b03232;
+ }
+.removevote:hover{
+   color: #b03232;
+   border: solid 3px #b03232;
+   transition: color 0s ease-in-out, border-bottom-color 0s ease-in-out;
+ }
+ .allvotes{
+   padding-top: 8px;
+ }
+
+
+
+ #filecss{
+   padding-top: 8px;
+   padding-bottom: 5px;
+   padding-left: 20px;
+   padding-right: 20px;
+   border: solid 3px #36383c;
+   cursor: pointer;
+ }
+#filecss:hover:not(input){
+  color:#34a58e;
+  border-color: #34a58e;
+}
+#inputcss{
+  width: 70%;
+}
+.split{
+  margin-top: 50px;
+}
 
 body {
   background-color: #f2f2f2;
@@ -175,7 +229,7 @@ input[type="submit"] {
 	background-position: center center;
 	min-height: 500px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -204,7 +258,7 @@ input[type="submit"] {
 	background-position: center center;
 	min-height: 500px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -233,7 +287,7 @@ input[type="submit"] {
 	background-position: center center;
 	min-height: 450px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -262,7 +316,7 @@ input[type="submit"] {
 	background-position: center center;
 	min-height: 450px;
 	width: 100%;
-	
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -468,7 +522,7 @@ input[type="submit"] {
 .blog-post em {
 	text-align: left;
 	font-size: 22px;
-	color: #767676;	
+	color: #767676;
 }
 
 .blog-post i {
@@ -526,27 +580,27 @@ input[type="submit"] {
 	font-weight: 700;
 }
 
-.popular-posts { 
+.popular-posts {
 	margin: 0px;
 	padding-left: 0px;
 	}
-	
+
 .popular-posts li {
-	list-style: none; 
-	margin-bottom: 20px; 
+	list-style: none;
+	margin-bottom: 20px;
 	min-height: 70px;
 }
-.popular-posts li a, 
+.popular-posts li a,
 .popular-posts li a:hover {
-	color:#2f2f2f; 
+	color:#2f2f2f;
 	text-decoration: none;
 	}
-	
+
 .popular-posts li img {
-	float: left; 
+	float: left;
 	margin-right: 20px;
 	}
-	
+
 .popular-posts li em {
 	font-family: 'Raleway', sans-serif;
 	font-size: 12px;
@@ -595,7 +649,7 @@ p > tag {
 	color: #fff;
 	text-align: left;
 	letter-spacing: 1px;
-	
+
 }
 
 .grid figcaption a {
@@ -665,7 +719,7 @@ p > tag {
 /* ==========================================================================
    Pricing Tables
    ========================================================================== */
-   
+
 .pricing-option {
     padding-bottom: 40px;
 }

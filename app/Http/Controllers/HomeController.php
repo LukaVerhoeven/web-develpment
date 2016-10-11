@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Photo;
+use App\Vote;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -14,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      /*  $this->middleware('auth'); ( moet ingelogd zijn om naar deze pagina te kunnen )*/
     }
 
     /**
@@ -24,11 +27,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
+        $user = Auth::user();
+        $allvotes = Vote::get();
+        if (Auth::check()) {
+            $votes = Vote::where('user_id', $user->id)->get();
+        }
 
-    public function doLogin()
-    {
-        return view('home');
+
+        $images = Photo::orderBy('id', 'asc')->get();
+        return view('home' , compact('images','votes','allvotes'));
     }
 }
