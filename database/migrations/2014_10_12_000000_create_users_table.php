@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('ip' , 45)->unique();
+            $table->boolean('isAdmin');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+  
     }
 }

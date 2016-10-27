@@ -18,8 +18,10 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/admin', 'AdminController@index');
 
 Route::post('/photoupload', 'ContestController@addphoto');
+Route::post('/createproject', 'AdminController@createproject');
 
 Route::get('/vote/{id}', 'ContestController@vote');
 Route::get('/removevote/{id}', 'ContestController@removevote');

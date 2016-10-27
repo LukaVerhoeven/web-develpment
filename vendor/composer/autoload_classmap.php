@@ -516,4 +516,5 @@ return array(
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'Votes' => $baseDir . '/database/migrations/2016_10_10_094200_votes.php',
+    'Wedstrijddates' => $baseDir . '/database/migrations/2016_10_27_143402_wedstrijddates.php',
 );

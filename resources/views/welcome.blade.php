@@ -25,7 +25,7 @@
           <a  class="btn btn-info"  href="/home" >See others</a>
           @if (Auth::guest())
               <a  class="btn btn-danger"  href="/register" >Participate</a>
-            @endif
+          @endif
 
 
 				</form>

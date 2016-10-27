@@ -31,6 +31,6 @@ class Photos extends Migration
      */
     public function down()
     {
-        //
+      
     }
 }
