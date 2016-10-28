@@ -21,8 +21,27 @@ class HomeController extends Controller
     {
       /*  $this->middleware('auth'); ( moet ingelogd zijn om naar deze pagina te kunnen )*/
     }
+    public function register()
+    {
+      return view('auth.register');
+    }
+    public function login()
+    {
+      return view('auth.login');
+    }
 
+    public function welcome()
+    {
+      $now = Carbon::now();
+      $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
+      $contestEnds;
+      if ($IsContestActive) {
+         $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->first();
+         $contestEnds = $activeContest->enddate;
+    }
 
+      return view('welcome' , compact('contestEnds','IsContestActive'));
+    }
     public function index()
     {
         $user = Auth::user();
@@ -32,8 +51,14 @@ class HomeController extends Controller
         }
         $now = Carbon::now();
         $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
+        $activeContest;
+        $images;
+        if ($IsContestActive) {
+           $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->first();
+           $images = Photo::orderBy('id', 'asc')->where('wedstrijd_id',$activeContest->id)->get();
+        }
 
-        $images = Photo::orderBy('id', 'asc')->get();
+
         return view('home' , compact('images','votes','allvotes','IsContestActive'));
     }
 }

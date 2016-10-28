@@ -11,18 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::auth();
 
+Route::get('/', 'HomeController@welcome');
 Route::get('/home', 'HomeController@index');
 Route::get('/admin', 'AdminController@index');
-Route::get('/editperiod/{id}', 'AdminController@index');
+Route::get('/register', 'HomeController@register');
+Route::get('/login', 'HomeController@login');
+Route::get('/editperiod/{id}', 'AdminController@edit');
 
 Route::post('/photoupload', 'ContestController@addphoto');
-Route::post('/createproject', 'AdminController@createproject');
+Route::post('/createperiod', 'AdminController@createperiod');
+Route::post('/updateperiod/{id}', 'AdminController@updateperiod');
 
 Route::get('/vote/{id}', 'ContestController@vote');
 Route::get('/removevote/{id}', 'ContestController@removevote');

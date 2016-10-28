@@ -34,5 +34,14 @@ class Photos extends Migration
     public function down()
     {
 
+      Schema::table('photos', function($table)
+       {
+           $table->integer('user_id')->unsigned();
+           $table->foreign('user_id')->references('id')->on('users');
+           $table->integer('wedstrijd_id')->unsigned();
+           $table->foreign('wedstrijd_id')->references('id')->on('wedstrijddates');
+       });
+
+
     }
 }

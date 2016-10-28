@@ -5,6 +5,9 @@
 
 				<!-- Main -->
 					<div id="main">
+						@if ($IsContestActive)
+
+
 						@foreach( $images as $image)
 							<article class="thumb">
 								<a href="{{$image->contestimage}}" class="image"><img src="{{$image->contestimage}}" alt="" /></a>
@@ -85,5 +88,7 @@
 							<h2>Vehicula id nulla dignissim</h2>
 							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
 						</article>
+					
+						@endif
 					</div>
 @endsection

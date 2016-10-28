@@ -3,11 +3,15 @@
 
 @section('content')
         <div class="container">
+
+
+
             <header>
                 <!-- HEADLINE -->
                 <h1 data-animated="GoIn"><b>Funny</b> Donkey Contest</h1>
             </header>
             <!-- START TIMER -->
+              @if ($IsContestActive)
             <div id="timer" data-animated="FadeIn">
                 <p id="message"></p>
                 <div id="days" class="timer_box"></div>
@@ -26,6 +30,13 @@
           @if (Auth::guest())
               <a  class="btn btn-danger"  href="/register" >Participate</a>
           @endif
+          <input type="hidden" name="name" id="enddate" value="{{$contestEnds}}">
+        @else
+          	<h4>Contest has ended</h4>
+            <a  class="btn btn-info"  href="/home" >homepanel</a>
+            <a  class="btn btn-danger"  href="/login" >Login</a>
+        @endif
+
 
 
 				</form>

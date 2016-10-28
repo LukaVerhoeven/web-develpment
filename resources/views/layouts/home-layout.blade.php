@@ -25,10 +25,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 		<!-- Header -->
 		<header id="header">
+			  <a href="/home" class="homebuttona"><img src="/img/puma.png" alt="puma logo" class="homebutton"/></a>
 			@if (Auth::guest())
-				<h1><a href="#"><strong>all</strong> pics </a></h1>
+				<h1><strong>all</strong> pics</h1>
 			@else
-				<h1><a href="#"><strong>{{ Auth::user()->name }} </a></h1>
+				<h1><strong>{{ Auth::user()->name }}</h1>
 				@endif
 
 				<nav>

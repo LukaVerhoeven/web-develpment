@@ -11,42 +11,13 @@
 @endsection
 @section('content')
 
-  <div class="container card-list">
-    @foreach ($allDates as $key => $date)
-        @if ($key == 0)
-          <div class="card blue">
-        @elseif ($key == 1)
-          <div class="card green">
-        @elseif ($key == 2)
-          <div class="card orange">
-        @else
-          <div class="card red">
-        @endif
-        <div class="title">Period {{$key +1}}</div> <a href="/editperiod/{{$date->id}}" class="edit">edit</a> </button> <span class="glyphicon glyphicon-upload"></span>
-        <div class="value">{{$date->startdate}}</div>
-        <div class="value">{{$date->enddate}}</div>
-        <div class="value">{{$date->price}}</div>
-        <div class="stat">
-          <div class="value">Top voted</div>
-        @foreach ($topvoted as $key => $topvote)
-          @if ($topvote->wedstrijd_id == $date->id)
-            <div class="value">{{$topvote->votes}}</div>
-            <div class="topname">{{$topvote->name}}</div>
-            @break
-          @endif
-        @endforeach
-
-        </div>
-      </div>
-    @endforeach
-  </div>
   <div class="container projects">
     <div class="projects-inner">
       <header class="projects-header">
-        <div class="title">{{$aantal}} Periods are set</div>
-        <div class="count">| add a new one</div><span class="glyphicon glyphicon-download-alt"></span>
+        <div class="title">Edit</div>
+        <div class="count"></div><span class="glyphicon glyphicon-download-alt"></span>
         <hr>
-        <form role="form" method="POST" action="{{ url('/createperiod') }}">
+        <form role="form" method="POST" action="/updateperiod/{{$contest->id}}">
             {{ csrf_field() }}
             @if(session()->has('error'))
               <li>{{ session()->get('error') }}</li>
@@ -56,8 +27,8 @@
               <div class="field-wrap">
                 <label for="price" >Price <span class="req">*</span></label>
 
-
-                    <input id="price" type="text" name="price" value="{{ old('price') }}" >
+                    {{-- <input type="hidden" id="SavePrice" value="{{ old('price') }}" > --}}
+                    <input id="price" type="text" name="price" value="{{ $contest->price }}" >
 
                     @if ($errors->has('price'))
                         <span class="help-block">
@@ -71,7 +42,7 @@
               <div class="field-wrap">
 
                 <label for="startdate" >Start date <span class="req">*</span></label>
-                    <input id="startdate" type="date"  name="startdate" required>
+                    <input id="startdate" type="date"  name="startdate" value="{{ $contest->startdate }}" required>
 
                     @if ($errors->has('startdate'))
                         <span class="help-block">
@@ -84,7 +55,7 @@
               <div class="field-wrap">
 
                 <label for="enddate" >End date <span class="req">*</span></label>
-                    <input id="enddate" type="date"  name="enddate" required>
+                    <input id="enddate" type="date"  name="enddate" value="{{ $contest->enddate }}" required>
 
                     @if ($errors->has('enddate'))
                         <span class="help-block">
@@ -97,7 +68,7 @@
             <div class="form-group">
                 <div>
                     <button type="submit" class="button button-block">
-                        Create new project
+                        Save
                     </button>
 
                 </div>

@@ -6,7 +6,10 @@ COMMING SOON PAGE
     * Set your date here  (YEAR, MONTH (0 for January/11 for December), DAY, HOUR, MINUTE, SECOND)
     * according to the GMT+0 Timezone
     **/
-    var launch = new Date(2016, 10 , 30, 11, 00);
+    var fulldate = $('#enddate').val();
+    var enddates = fulldate.split("-");
+    console.log(enddates);
+    var launch = new Date(enddates[0], enddates[1]-1 , enddates[2], 0, 00);
     /**
     * The script
     **/
