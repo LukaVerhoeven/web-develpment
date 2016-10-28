@@ -19,6 +19,7 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/admin', 'AdminController@index');
+Route::get('/editperiod/{id}', 'AdminController@index');
 
 Route::post('/photoupload', 'ContestController@addphoto');
 Route::post('/createproject', 'AdminController@createproject');

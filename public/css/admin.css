@@ -200,3 +200,6 @@ li {
   margin: 0px;
   margin-top: 10px
 }
+div.stat div.topname{
+  padding-left: 10px !important;
+}

@@ -12,52 +12,45 @@
 @section('content')
 
   <div class="container card-list">
-    <div class="card blue">
-      <div class="title">Project 1</div> <a href="" class="edit">edit</a> </button> <span class="glyphicon glyphicon-upload"></span>
-      <div class="value">05/10/16</div>
-      <div class="value">06/11/16</div>
-      <div class="stat">
-        <div class="title">Top vote</div>
-        <div class="value">5</div>
-      </div>
-    </div>
-    <div class="card green">
-      <div class="title">Project 2</div><span class="glyphicon glyphicon-upload"></span>
-      <div class="value">00/00/00</div>
-      <div class="value">00/00/00</div>
-      <div class="stat">
-        <div class="title">Top vote</div>
-        <div class="value">0</div>
-      </div>
+    @foreach ($allDates as $key => $date)
+        @if ($key == 0)
+          <div class="card blue">
+        @elseif ($key == 1)
+          <div class="card green">
+        @elseif ($key == 2)
+          <div class="card orange">
+        @else
+          <div class="card red">
+        @endif
+        <div class="title">Period {{$key +1}}</div> <a href="/editperiod/{{$date->id}}" class="edit">edit</a> </button> <span class="glyphicon glyphicon-upload"></span>
+        <div class="value">{{$date->startdate}}</div>
+        <div class="value">{{$date->enddate}}</div>
+        <div class="value">{{$date->price}}</div>
+        <div class="stat">
+          <div class="value">Top voted</div>
+        @foreach ($topvoted as $key => $topvote)
+          @if ($topvote->wedstrijd_id == $date->id)
+            <div class="value">{{$topvote->votes}}</div>
+            <div class="topname">{{$topvote->name}}</div>
+            @break
+          @endif
+        @endforeach
 
-    </div>
-    <div class="card orange">
-      <div class="title">Project 3</div><span class="glyphicon glyphicon-download"></span>
-      <div class="value">00/00/00</div>
-      <div class="value">00/00/00</div>
-      <div class="stat">
-        <div class="title">Top vote</div>
-        <div class="value">0</div>
+        </div>
       </div>
-    </div>
-    <div class="card red">
-      <div class="title">Project 4</div><span class="glyphicon glyphicon-download"></span>
-      <div class="value">00/00/00</div>
-      <div class="value">00/00/00</div>
-      <div class="stat">
-        <div class="title">Top vote</div>
-        <div class="value">0</div>
-      </div>
-    </div>
+    @endforeach
   </div>
   <div class="container projects">
     <div class="projects-inner">
       <header class="projects-header">
-        <div class="title">2 Projects are set</div>
+        <div class="title">2 Period are set</div>
         <div class="count">| add new date</div><span class="glyphicon glyphicon-download-alt"></span>
         <hr>
         <form role="form" method="POST" action="{{ url('/createproject') }}">
             {{ csrf_field() }}
+            @if(session()->has('error'))
+              <li>{{ session()->get('error') }}</li>
+            @endif
 
             <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
               <div class="field-wrap">

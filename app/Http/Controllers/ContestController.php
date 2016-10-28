@@ -9,6 +9,8 @@ use App\Http\Requests;
 use App\Photo;
 use App\user;
 use App\Vote;
+use App\Wedstrijddate;
+use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
@@ -24,6 +26,12 @@ class ContestController extends Controller
     		{
     			   $user = Auth::user();
              $image = new Photo;
+             $now = Carbon::now();
+             $wedstrijden = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->get();
+             $wedstrijd;
+             foreach ($wedstrijden as $key => $wedstrijd1) {
+               $wedstrijd =$wedstrijd1;
+             }
 
 
     	        $destinationPath = '/public/img';
@@ -37,6 +45,7 @@ class ContestController extends Controller
 
               $image->contestimage  = $fileName;
               $image->User()->associate($user);
+              $image->Wedstrijddate()->associate($wedstrijd);
               $image->save();
             }
 

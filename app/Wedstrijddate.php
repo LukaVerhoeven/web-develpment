@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Wedstrijddates extends Model
+class Wedstrijddate extends Model
 {
   protected $fillable = [
       'price', 'startdate', 'enddate',

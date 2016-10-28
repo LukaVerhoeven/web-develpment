@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Photo;
 use App\Vote;
 use App\User;
+use App\Wedstrijddate;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -20,11 +22,7 @@ class HomeController extends Controller
       /*  $this->middleware('auth'); ( moet ingelogd zijn om naar deze pagina te kunnen )*/
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $user = Auth::user();
@@ -32,9 +30,10 @@ class HomeController extends Controller
         if (Auth::check()) {
             $votes = Vote::where('user_id', $user->id)->get();
         }
-
+        $now = Carbon::now();
+        $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
 
         $images = Photo::orderBy('id', 'asc')->get();
-        return view('home' , compact('images','votes','allvotes'));
+        return view('home' , compact('images','votes','allvotes','IsContestActive'));
     }
 }

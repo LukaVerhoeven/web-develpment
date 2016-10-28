@@ -17,7 +17,6 @@ class Wedstrijddates extends Migration
           $table->string('price');
           $table->date('startdate');
           $table->date('enddate');
-          $table->rememberToken();
           $table->timestamps();
       });
     }
