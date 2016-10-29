@@ -32,7 +32,9 @@ class HomeController extends Controller
 
     public function welcome()
     {
+
       $now = Carbon::now();
+
       $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
       $contestEnds;
       if ($IsContestActive) {

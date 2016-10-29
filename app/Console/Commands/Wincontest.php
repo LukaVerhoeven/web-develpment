@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Wedstrijddate;
 
 class Wincontest extends Command
 {
@@ -37,11 +38,19 @@ class Wincontest extends Command
      */
     public function handle()
     {
-      $dateFromDatabase = strtotime("2012-12-04 12:05:04");
+      $wedstrijddate = new Wedstrijddate;
+      $wedstrijddate->price     = "popo";
+      $wedstrijddate->startdate = "2016-10-29";
+      $wedstrijddate->enddate   = "2016-10-20";
+      $wedstrijddate->save();
+
+      $dateFromDatabase = strtotime("2016-10-29 18:40:04");
       $dateTwelveHoursAgo = strtotime("-1 hours");
 
       if ($dateFromDatabase >= $dateTwelveHoursAgo) {
           // less than 12 hours ago
+
+          $this->line('Display this on the screen');
       }
       else {
           // more than 12 hours ago
