@@ -38,19 +38,33 @@ class Wincontest extends Command
      */
     public function handle()
     {
-      $wedstrijddate = new Wedstrijddate;
-      $wedstrijddate->price     = "popo";
-      $wedstrijddate->startdate = "2016-10-29";
-      $wedstrijddate->enddate   = "2016-10-20";
-      $wedstrijddate->save();
+      $yesterday = strtotime("-24 hours");
+      $yesterdaydate = date('Y-m-d', $yesterday);
+      $nowdate = $now->format('Y-m-d');
+      $Endcontest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->exists();
 
-      $dateFromDatabase = strtotime("2016-10-29 18:40:04");
-      $dateTwelveHoursAgo = strtotime("-1 hours");
 
-      if ($dateFromDatabase >= $dateTwelveHoursAgo) {
+      if ($Endcontest) {
+          $contest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->first();
+          $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'), 'photos.wedstrijd_id', 'users.name' )
+          ->leftJoin('photos', 'photo_id', '=', 'photos.id')
+          ->leftJoin('users', 'photos.user_id', '=', 'users.id')
+          ->groupBy('photo_id')
+          ->orderBy('votes', 'desc')
+          ->where('photos.wedstrijd_id',$contest->id )
+          ->take(10)
+          ->get();
           // less than 12 hours ago
+          // mail a winner
+          $data = [
+            'title'=>'hallo',
+            'content'=>'jij bent cool'
+          ];
+          Mail::send('auth.emails.wincontest',$data, function ($message) {
 
-          $this->line('Display this on the screen');
+                $message->to("lka.v.lv@gmail.com", "luka")->subject('Your Reminder!');
+          });
+
       }
       else {
           // more than 12 hours ago

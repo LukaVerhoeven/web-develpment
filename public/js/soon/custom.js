@@ -8,7 +8,6 @@ COMMING SOON PAGE
     **/
     var fulldate = $('#enddate').val();
     var enddates = fulldate.split("-");
-    console.log(enddates);
     var launch = new Date(enddates[0], enddates[1]-1 , enddates[2], 0, 00);
     /**
     * The script
