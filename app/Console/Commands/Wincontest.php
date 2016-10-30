@@ -4,6 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Wedstrijddate;
+use Carbon\Carbon;
+use App\Vote;
+use DB;
+use Carbon\Carbon;
+use Mail;
 
 class Wincontest extends Command
 {
@@ -38,6 +43,7 @@ class Wincontest extends Command
      */
     public function handle()
     {
+      $now = Carbon::now();
       $yesterday = strtotime("-24 hours");
       $yesterdaydate = date('Y-m-d', $yesterday);
       $nowdate = $now->format('Y-m-d');
@@ -46,28 +52,29 @@ class Wincontest extends Command
 
       if ($Endcontest) {
           $contest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->first();
-          $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'), 'photos.wedstrijd_id', 'users.name' )
+          $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'),'photos.contestimage','wedstrijddates.price', 'photos.wedstrijd_id', 'users.name' ,'users.email' )
           ->leftJoin('photos', 'photo_id', '=', 'photos.id')
           ->leftJoin('users', 'photos.user_id', '=', 'users.id')
+          ->leftJoin('wedstrijddates', 'photos.wedstrijd_id', '=', 'wedstrijddates.id')
           ->groupBy('photo_id')
           ->orderBy('votes', 'desc')
           ->where('photos.wedstrijd_id',$contest->id )
-          ->take(10)
-          ->get();
+          ->first();
           // less than 12 hours ago
           // mail a winner
           $data = [
-            'title'=>'hallo',
-            'content'=>'jij bent cool'
+            'title'=>'U heeft Gewonnen',
+            'user'=> $topvoted->name,
+            'img' => substr($topvoted->contestimage, 5),
+            'price'=> $topvoted->price,
+            'e-mail' =>$topvoted->email,
+            'content'=>'U heeft de hoofdprijs gewonnen:'
           ];
-          Mail::send('auth.emails.wincontest',$data, function ($message) {
+          Mail::send('auth.emails.wincontest',$data, function ($message) use ($data) {
 
-                $message->to("lka.v.lv@gmail.com", "luka")->subject('Your Reminder!');
+                $message->to($data['e-mail'], $data['user'])->subject('Your won!');
           });
 
-      }
-      else {
-          // more than 12 hours ago
       }
     }
 }

@@ -14,6 +14,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/assets/css/app.css" />
+	<link rel="stylesheet" href="/css/font-awesome.min.css" />
 	@yield('css')
 	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -34,17 +35,17 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 				<nav>
 					<ul>
-
+							<li><a href="/" ><i class="fa fa-clock-o" aria-hidden="true"></i></a></li>
 						@if (Auth::guest())
-							<li><a href="/login" class="icon fa-info-circle">Login</a></li>
+							<li><a href="/login" class="icon fa-sign-in">Login</a></li>
 						@else
 							@if (Auth::user()->isAdmin)
-								<li><a href="/admin" class="icon fa-info-circle">admin-panel</a></li>
+								<li><a href="/admin" class="icon fa-star-o">admin-panel</a></li>
 							@endif
 
 
-							<li><a href="#footer" class="icon fa-info-circle">participate</a></li>
-							<li><a href="/logout" class="icon fa-info-circle">Logout</a></li>
+							<li><a href="#footer" class="icon fa-play">participate</a></li>
+							<li><a href="/logout" class="icon fa-sign-out">Logout</a></li>
 						@endif
 
 					</ul>

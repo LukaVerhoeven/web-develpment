@@ -9,7 +9,6 @@ use App\Vote;
 use App\User;
 use App\Wedstrijddate;
 use Carbon\Carbon;
-use Mail;
 use DB;
 
 class HomeController extends Controller
@@ -38,37 +37,6 @@ class HomeController extends Controller
 
 
       $now = Carbon::now();
-
-      $yesterday = strtotime("-24 hours");
-      $yesterdaydate = date('Y-m-d', $yesterday);
-      $nowdate = $now->format('Y-m-d');
-
-      $Endcontest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->exists();
-      $contest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->first();
-      $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'),'photos.contestimage', 'photos.wedstrijd_id', 'users.name' )
-      ->leftJoin('photos', 'photo_id', '=', 'photos.id')
-      ->leftJoin('users', 'photos.user_id', '=', 'users.id')
-      ->groupBy('photo_id')
-      ->orderBy('votes', 'desc')
-      ->where('photos.wedstrijd_id',$contest->id )
-      ->first();
-      // less than 12 hours ago
-      // mail a winner
-      $data = [
-        'title'=>'U heeft Gewonnen',
-        'user'=> $topvoted->name,
-        'img' =>$topvoted->contestimage,
-        'content'=>'U heeft de hoofdprijs gewonnen met de foto: '
-      ];
-      Mail::send('auth.emails.wincontest',$data, function ($message)  {
-
-            $message->to("lka.v.lv@gmail.com", "luka")->subject('Your won!');
-      });
-
-
-      if ($Endcontest) {
-
-      }
 
       $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
       $contestEnds;

@@ -11,7 +11,17 @@
     </p>
     <p>
 
-      {{$content}}{{$img}}
+      {{$content}}
+
+    </p>
+    <p>
+
+      Photo: {{$img}}
+
+    </p>
+    <p>
+
+      Price :{{$price}}
 
     </p>
   </body>
