@@ -1,4 +1,4 @@
-*, , *:after {
+*, *:before, *:after {
   box-sizing: border-box;
 }
 
@@ -10,7 +10,16 @@ body {
   background: #f2f2f2;
   font-family: 'Titillium Web', sans-serif;
 }
+.btn {
+padding:6px 20px;
+text-align:center
+}
 
+.btn-danger {
+color:#fff;
+border-color:1px solid #d43f3a;
+background:#bd4c42
+}
 a {
   text-decoration: none;
   color: #1ab188;

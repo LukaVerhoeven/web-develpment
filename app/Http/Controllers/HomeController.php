@@ -34,18 +34,21 @@ class HomeController extends Controller
     public function welcome()
     {
 
-
-
       $now = Carbon::now();
 
-      $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
+
+      $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->exists();
+      $ContestExists = Wedstrijddate::where('lastended',1)->where('isdeleted',0)->exists();
       $contestEnds;
+      $lastcontest;
       if ($IsContestActive) {
-         $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->first();
+         $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->first();
          $contestEnds = $activeContest->enddate;
+    }elseif ($ContestExists){
+      $lastcontest = Wedstrijddate::where('lastended',1)->where('isdeleted',0)->first();
     }
 
-      return view('welcome' , compact('contestEnds','IsContestActive'));
+      return view('welcome' , compact('contestEnds','IsContestActive','lastcontest','ContestExists'));
     }
     public function index()
     {
@@ -55,12 +58,12 @@ class HomeController extends Controller
             $votes = Vote::where('user_id', $user->id)->get();
         }
         $now = Carbon::now();
-        $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->exists();
+        $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->exists();
         $activeContest;
         $images;
         if ($IsContestActive) {
-           $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->first();
-           $images = Photo::orderBy('id', 'asc')->where('wedstrijd_id',$activeContest->id)->get();
+           $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->first();
+           $images = Photo::orderBy('id', 'asc')->where('wedstrijd_id',$activeContest->id)->where('isdeleted',0)->get();
         }
 
 

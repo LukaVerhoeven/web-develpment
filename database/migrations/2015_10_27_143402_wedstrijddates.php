@@ -17,6 +17,9 @@ class Wedstrijddates extends Migration
           $table->string('price');
           $table->date('startdate');
           $table->date('enddate');
+          $table->string('won');
+          $table->integer('lastended');
+          $table->integer('isdeleted');
           $table->timestamps();
       });
     }

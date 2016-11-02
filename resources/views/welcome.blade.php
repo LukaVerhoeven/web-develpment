@@ -20,7 +20,8 @@
                 <div id="seconds" class="timer_box"></div>
             </div>
             <!-- END TIMER -->
-            <div class="col-lg-4 col-lg-offset-4 mt centered">
+            <
+            div class="col-lg-4 col-lg-offset-4 mt centered">
             	<h4>JOIN AND WIN A WORLD TRIP</h4>
 				<form class="form-inline" role="form">
 				  <div class="form-group">
@@ -33,6 +34,9 @@
           <input type="hidden" name="name" id="enddate" value="{{$contestEnds}}">
         @else
           	<h4>Contest has ended</h4>
+            @if ($ContestExists)
+              <h4>{{$lastcontest->won}} has won a {{$lastcontest->price}}</h4>
+            @endif
             <a  class="btn btn-info"  href="/home" >homepanel</a>
             <a  class="btn btn-danger"  href="/login" >Login</a>
         @endif

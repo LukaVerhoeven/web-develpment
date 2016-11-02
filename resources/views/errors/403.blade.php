@@ -18,6 +18,7 @@
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
+                background-color: rgb(62, 62, 62);
             }
 
             .container {

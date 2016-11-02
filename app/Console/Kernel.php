@@ -45,15 +45,21 @@ class Kernel extends ConsoleKernel
 
             if ($Endcontest) {
                 $contest = Wedstrijddate::whereBetween('enddate',array($yesterdaydate, $nowdate))->first();
-                $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'),'photos.contestimage','wedstrijddates.price', 'photos.wedstrijd_id', 'users.name' ,'users.email' )
+                $topvoted = Vote::select('photo_id', DB::raw('COUNT(photo_id) as votes'),'photos.contestimage', 'photos.isdeleted','wedstrijddates.price', 'photos.wedstrijd_id', 'users.name' ,'users.email' )
                 ->leftJoin('photos', 'photo_id', '=', 'photos.id')
                 ->leftJoin('users', 'photos.user_id', '=', 'users.id')
                 ->leftJoin('wedstrijddates', 'photos.wedstrijd_id', '=', 'wedstrijddates.id')
                 ->groupBy('photo_id')
                 ->orderBy('votes', 'desc')
+                ->where('isdeleted',0)
                 ->where('photos.wedstrijd_id',$contest->id )
                 ->first();
                 // mail a winner
+                $affected = DB::table('wedstrijddates')->where('lastended', '=', 1)->update(array('lastended' => 0));
+                $contest->lastended = 1;
+                if (!empty($topvoted)) {
+                $contest->won = $topvoted->name;
+                $contest->save();
                 $data = [
                   'title'=>'U heeft Gewonnen',
                   'user'=> $topvoted->name,
@@ -66,7 +72,9 @@ class Kernel extends ConsoleKernel
 
                       $message->to($data['e-mail'], $data['user'])->subject('Your won!');
                 });
-
+              }else {
+                  $contest->save();
+              }
             }
 
         })->dailyAt('00:01');

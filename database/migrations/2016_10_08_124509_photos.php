@@ -15,6 +15,7 @@ class Photos extends Migration
        Schema::create('photos', function (Blueprint $table) {
          $table->increments('id');
          $table->string('contestimage');
+         $table->integer('isdeleted');
          $table->timestamps();
        });
 

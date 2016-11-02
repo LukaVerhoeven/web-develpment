@@ -21,6 +21,10 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/register', 'HomeController@register');
 Route::get('/login', 'HomeController@login');
 Route::get('/editperiod/{id}', 'AdminController@edit');
+Route::get('/deleteperiod/{id}', 'AdminController@delete');
+Route::get('/allpics', 'AdminController@allpics');
+Route::get('/deletepic/{id}', 'AdminController@deletepic');
+Route::get('/recoverpic/{id}', 'AdminController@recoverpic');
 
 Route::post('/photoupload', 'ContestController@addphoto');
 Route::post('/createperiod', 'AdminController@createperiod');
