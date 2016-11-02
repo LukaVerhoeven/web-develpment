@@ -10,6 +10,7 @@ use App\User;
 use App\Wedstrijddate;
 use Carbon\Carbon;
 use DB;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -35,8 +36,6 @@ class HomeController extends Controller
     {
 
       $now = Carbon::now();
-
-
       $IsContestActive = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->exists();
       $ContestExists = Wedstrijddate::where('lastended',1)->where('isdeleted',0)->exists();
       $contestEnds;
@@ -48,7 +47,7 @@ class HomeController extends Controller
       $lastcontest = Wedstrijddate::where('lastended',1)->where('isdeleted',0)->first();
     }
 
-      return view('welcome' , compact('contestEnds','IsContestActive','lastcontest','ContestExists'));
+      return view('welcome' , compact('contestEnds','IsContestActive','lastcontest','ContestExists', 'activeContest'));
     }
     public function index()
     {
@@ -63,7 +62,7 @@ class HomeController extends Controller
         $images;
         if ($IsContestActive) {
            $activeContest = Wedstrijddate::where('startdate','<' ,$now)->where('enddate','>' ,$now)->where('isdeleted',0)->first();
-           $images = Photo::orderBy('id', 'asc')->where('wedstrijd_id',$activeContest->id)->where('isdeleted',0)->get();
+           $images = Photo::orderBy('id', 'desc')->where('wedstrijd_id',$activeContest->id)->where('isdeleted',0)->get();
         }
 
 

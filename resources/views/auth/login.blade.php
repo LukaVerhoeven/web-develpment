@@ -15,7 +15,7 @@
 @section('content')
   <header id="head">
     <!-- HEADLINE -->
-    <h2><b>Funny</b> Donkey Contest</h2>
+    <h2><b>Funny</b> Puma Contest</h2>
   </header>
 
 

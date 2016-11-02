@@ -8,7 +8,7 @@
 
             <header>
                 <!-- HEADLINE -->
-                <h1 data-animated="GoIn"><b>Funny</b> Donkey Contest</h1>
+                <h1 data-animated="GoIn"><b>Funny</b> Puma Contest</h1>
             </header>
             <!-- START TIMER -->
               @if ($IsContestActive)
@@ -20,9 +20,8 @@
                 <div id="seconds" class="timer_box"></div>
             </div>
             <!-- END TIMER -->
-            <
-            div class="col-lg-4 col-lg-offset-4 mt centered">
-            	<h4>JOIN AND WIN A WORLD TRIP</h4>
+            <div class="col-lg-4 col-lg-offset-4 mt centered">
+            	<h4>JOIN AND WIN A {{$activeContest->price}}</h4>
 				<form class="form-inline" role="form">
 				  <div class="form-group">
 				    <label class="sr-only" for="exampleInputEmail2">Email address</label>

@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'lka.v.lv@gmail.com', 'name' => 'Puma Contest'],
+    'from' => ['address' =>  env('MAIL_USERNAME'), 'name' => env('MAIL_NAME')],
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'username' => env('postmaster@sandbox7479c231568549ce9748b6c7afd37082.mailgun.org'),
+    'username' => env('MAIL_USERNAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => env('d0705c5cf9dc8bc0f80dd11658e9e1ef'),
+    'password' => env('MAIL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------

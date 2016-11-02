@@ -15,7 +15,7 @@
 @section('content')
   <header id="head">
     <!-- HEADLINE -->
-    <h2><b>Funny</b> Donkey Contest</h2>
+    <h2><b>Funny</b> Puma Contest</h2>
   </header>
 
 
@@ -39,7 +39,7 @@
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                              
+
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
